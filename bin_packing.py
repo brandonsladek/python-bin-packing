@@ -69,8 +69,6 @@ def find_solution(rectangles):
 
     column_placement.append(place_in_columns(0, column_placement_0))
     upper_left_x = upper_left_x + get_max_width(column_placement_0)+1
-    print('column placement 0' + str(column_placement_0))
-    print('max width col 0: ' + str(get_max_width(column_placement_0)))
     
     column_placement.append(place_in_columns(upper_left_x, column_placement_1))
     upper_left_x = upper_left_x + get_max_width(column_placement_1)+1
@@ -98,8 +96,7 @@ def find_solution(rectangles):
     
     column_placement.append(place_in_columns(upper_left_x, column_placement_9))
     upper_left_x = upper_left_x + get_max_width(column_placement_9)+1
-    
-    print(str(extract_placements(column_placement)))
+
     return extract_placements(column_placement)
 
 def get_max_width(some_boxes):
@@ -127,10 +124,13 @@ def place_in_columns(upper_left_x, some_boxes):
     return placement
 
 def extract_placements(tuples):
-    
     final_placement = []
-    for index in range(len(tuples)):
-        final_placement.insert(tuples[index][0][0], tuples[index][1])
+    #print(str(tuples[0]))
+    for i in range(len(tuples)):
+        tuple = tuples[i]
+        print(str(tuple))
+    #print(str(tuple))
+    #final_placement.insert(tuples[index][0][0], tuples[index][1])
     return final_placement
 
 
