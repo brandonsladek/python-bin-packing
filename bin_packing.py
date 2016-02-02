@@ -42,7 +42,7 @@ def find_solution(rectangles):
     
     final_placement = []
     
-    for index in range(len(rectangles)-1):
+    for index in range(len(rectangles)):
         
         width = rectangles[index][0]
         
@@ -69,45 +69,45 @@ def find_solution(rectangles):
 
     for key, value in place_in_columns(0, column_placement_0).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_0)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_0)
 
     for key, value in place_in_columns(upper_left_x, column_placement_1).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_1)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_1)
 
     for key, value in place_in_columns(upper_left_x, column_placement_2).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_2)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_2)
 
     for key, value in place_in_columns(upper_left_x, column_placement_3).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_3)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_3)
 
     for key, value in place_in_columns(upper_left_x, column_placement_4).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_4)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_4)
 
     for key, value in place_in_columns(upper_left_x, column_placement_5).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_5)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_5)
 
     for key, value in place_in_columns(upper_left_x, column_placement_6).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_6)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_6)
 
     for key, value in place_in_columns(upper_left_x, column_placement_7).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_7)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_7)
 
     for key, value in place_in_columns(upper_left_x, column_placement_8).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_8)+1
+    upper_left_x = upper_left_x + get_max_width(column_placement_8)
 
     for key, value in place_in_columns(upper_left_x, column_placement_9).items():
         column_placement[key] = value
-    upper_left_x = upper_left_x + get_max_width(column_placement_9)+1
 
     return extract_placements(column_placement)
+
 
 def get_max_width(some_boxes):
     widths = []
@@ -115,11 +115,6 @@ def get_max_width(some_boxes):
         widths.append(value[0])
     return max(widths)
 
-def get_final_placement(unsorted_placements):
-    final_placement = []
-    for tuple in unsorted_placements:
-        final_placement.insert(unsorted_placements[0],unsorted_placements[1])
-    return final_placement
 
 def place_in_columns(upper_left_x, some_boxes):
     placement = {}
@@ -133,16 +128,16 @@ def place_in_columns(upper_left_x, some_boxes):
     
     return placement
 
+
 def extract_placements(placement_dict):
     final_placement = []
     for key, value in placement_dict.items():
-        final_placement.insert(0, value)
-    final_placement.reverse()
+        final_placement.insert(key, value)
     return final_placement
 
 
 
-
+# All code below this point is from the original driver.py file given to us when the assignment was first assigned
 
 
 # ----------------------------------------------
@@ -153,7 +148,7 @@ def extract_placements(placement_dict):
 
 import random
 import time
-
+#import bin_packing
 
 # -----------------------------------------------
 
