@@ -28,17 +28,17 @@ def find_solution(rectangles):
     
     upper_left_x = 0
     
-    column_placement = []
-    column_placement_0 = []
-    column_placement_1 = []
-    column_placement_2 = []
-    column_placement_3 = []
-    column_placement_4 = []
-    column_placement_5 = []
-    column_placement_6 = []
-    column_placement_7 = []
-    column_placement_8 = []
-    column_placement_9 = []
+    column_placement = {}
+    column_placement_0 = {}
+    column_placement_1 = {}
+    column_placement_2 = {}
+    column_placement_3 = {}
+    column_placement_4 = {}
+    column_placement_5 = {}
+    column_placement_6 = {}
+    column_placement_7 = {}
+    column_placement_8 = {}
+    column_placement_9 = {}
     
     final_placement = []
     
@@ -47,62 +47,72 @@ def find_solution(rectangles):
         width = rectangles[index][0]
         
         if width < 101:
-            column_placement_0.append((index, rectangles[index]))
+            column_placement_0[index] = rectangles[index]
         elif width < 201:
-            column_placement_1.append((index, rectangles[index]))
+            column_placement_1[index] = rectangles[index]
         elif width < 301:
-            column_placement_2.append((index, rectangles[index]))
+            column_placement_2[index] = rectangles[index]
         elif width < 401:
-            column_placement_3.append((index, rectangles[index]))
+            column_placement_3[index] = rectangles[index]
         elif width < 501:
-            column_placement_4.append((index, rectangles[index]))
+            column_placement_4[index] = rectangles[index]
         elif width < 601:
-            column_placement_5.append((index, rectangles[index]))
+            column_placement_5[index] = rectangles[index]
         elif width < 701:
-            column_placement_6.append((index, rectangles[index]))
+            column_placement_6[index] = rectangles[index]
         elif width < 801:
-            column_placement_7.append((index, rectangles[index]))
+            column_placement_7[index] = rectangles[index]
         elif width < 901:
-            column_placement_8.append((index, rectangles[index]))
+            column_placement_8[index] = rectangles[index]
         elif width < 1001:
-            column_placement_9.append((index, rectangles[index]))
+            column_placement_9[index] = rectangles[index]
 
-    column_placement.append(place_in_columns(0, column_placement_0))
+    for key, value in place_in_columns(0, column_placement_0).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_0)+1
-    
-    column_placement.append(place_in_columns(upper_left_x, column_placement_1))
+
+    for key, value in place_in_columns(upper_left_x, column_placement_1).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_1)+1
 
-    column_placement.append(place_in_columns(upper_left_x, column_placement_2))
+    for key, value in place_in_columns(upper_left_x, column_placement_2).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_2)+1
 
-    column_placement.append(place_in_columns(upper_left_x, column_placement_3))
+    for key, value in place_in_columns(upper_left_x, column_placement_3).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_3)+1
 
-    column_placement.append(place_in_columns(upper_left_x, column_placement_4))
+    for key, value in place_in_columns(upper_left_x, column_placement_4).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_4)+1
 
-    column_placement.append(place_in_columns(upper_left_x, column_placement_5))
+    for key, value in place_in_columns(upper_left_x, column_placement_5).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_5)+1
 
-    column_placement.append(place_in_columns(upper_left_x, column_placement_6))
+    for key, value in place_in_columns(upper_left_x, column_placement_6).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_6)+1
 
-    column_placement.append(place_in_columns(upper_left_x, column_placement_7))
+    for key, value in place_in_columns(upper_left_x, column_placement_7).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_7)+1
 
-    column_placement.append(place_in_columns(upper_left_x, column_placement_8))
+    for key, value in place_in_columns(upper_left_x, column_placement_8).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_8)+1
-    
-    column_placement.append(place_in_columns(upper_left_x, column_placement_9))
+
+    for key, value in place_in_columns(upper_left_x, column_placement_9).items():
+        column_placement[key] = value
     upper_left_x = upper_left_x + get_max_width(column_placement_9)+1
 
     return extract_placements(column_placement)
 
 def get_max_width(some_boxes):
     widths = []
-    for index in range(len(some_boxes)):
-        widths.append(some_boxes[index][1][0])
+    for key, value in some_boxes.items():
+        widths.append(value[0])
     return max(widths)
 
 def get_final_placement(unsorted_placements):
@@ -112,25 +122,22 @@ def get_final_placement(unsorted_placements):
     return final_placement
 
 def place_in_columns(upper_left_x, some_boxes):
-    placement = []
+    placement = {}
     upper_left_y = 0
     
-    for tuple in some_boxes:
-        height = tuple[1][1]
-        coordinate = (upper_left_x, upper_left_y)   # make a tuple
-        placement.append((tuple[0], coordinate))
+    for key, value in some_boxes.items():
+        height = value[1]
+        coordinate = (upper_left_x, upper_left_y)
+        placement[key] = coordinate
         upper_left_y = upper_left_y - height
     
     return placement
 
-def extract_placements(tuples):
+def extract_placements(placement_dict):
     final_placement = []
-    #print(str(tuples[0]))
-    for i in range(len(tuples)):
-        tuple = tuples[i]
-        print(str(tuple))
-    #print(str(tuple))
-    #final_placement.insert(tuples[index][0][0], tuples[index][1])
+    for key, value in placement_dict.items():
+        final_placement.insert(0, value)
+    final_placement.reverse()
     return final_placement
 
 
