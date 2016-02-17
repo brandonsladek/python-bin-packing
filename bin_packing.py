@@ -28,6 +28,32 @@ def find_solution(rectangles):
     return find_solution_by_50(rectangles)
 
 
+
+def find_solution_by_x(rectangles):
+    num_columns = 10;
+    column_width = calc_widths(rectangles, num_columns)
+
+    columns = []
+    
+    for index in range(len(rectangles)):
+
+        width = rectangles[index][0]
+
+        column_number = width / column_width
+
+        print ("Column Num")
+        print (col)
+
+        columns[column_number][index] = rectangles[index]
+
+    for col_index in range(num_columns):
+        for key, value in place_in_columns(0, column_placement_0).items():
+            column_placement[key] = value
+        upper_left_x = upper_left_x + get_max_width(columns[col_index])
+    
+    return extract_placements(column_placement)
+
+
 def find_solution_by_100(rectangles):
     
     upper_left_x = 0
@@ -269,6 +295,23 @@ def get_max_width(some_boxes):
     for key, value in some_boxes.items():
         widths.append(value[0])
     return max(widths)
+
+
+def get_min_width(some_boxes):
+    widths = []
+    for key, value in some_boxes.items():
+        widths.append(value[0])
+    return min(widths)
+
+
+def calc_widths(rectangles, num_columns):
+    min_width = get_min_width(rectangles)
+    max_width = get_max_width(rectangles)
+    d_width = max_width - min_width;
+    widths = {}
+    for index in range(num_columns):
+        widths[index] = minWidth + (index * (d_width / num_columns))
+    return widths
 
 
 def place_in_columns(upper_left_x, some_boxes):
