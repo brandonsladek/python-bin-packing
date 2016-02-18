@@ -25,13 +25,17 @@ RETURNS: a list of tuples that designate the top left corner placement,
 """
 
 def find_solution(rectangles):
-    num_runs = 10
+    perimeter, positions = find_solution_by_x(rectangles, 75)
+    return positions
+
+def find_solution_varying(rectangles):
+    num_runs = 100
 
     perimeter_list = []
     placements_list = []
 
     for i in range(num_runs):
-        perimeter, placements = find_solution_by_x(rectangles, (i + 1) * 10)
+        perimeter, placements = find_solution_by_x(rectangles, (i + 1) * 1)
         perimeter_list.insert(i, perimeter)
         placements_list.insert(i, placements)
         # print (str(perimeter))
