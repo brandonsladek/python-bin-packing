@@ -25,7 +25,7 @@ RETURNS: a list of tuples that designate the top left corner placement,
 """
 
 def find_solution(rectangles):
-    return find_solution_by_x(rectangles, 100)
+    return find_solution_by_x(rectangles, 50)
 
 
 def find_solution_by_x(rectangles, num_columns):
@@ -39,11 +39,16 @@ def find_solution_by_x(rectangles, num_columns):
 
         width = rectangles[index][0]
 
+        # print ()
+        # print ("width " + str(width))
+        # print ("inc " + str(column_width_increment))
         column_number = int (width / column_width_increment)
 
-        if(column_number >= num_columns):
-            column_number = num_columns - 1
+        # print ("column_number " + str(column_number))
 
+        if(column_number >= num_columns):
+            print ("Column Number: " + str(column_number))
+            column_number = num_columns - 1
         columns[column_number][index] = rectangles[index]
         
     upper_left_x = 0
@@ -81,7 +86,7 @@ def calc_column_increment(rectangles, num_columns):
     min_width = min_width_of_list(rectangles)
     max_width = max_width_of_list(rectangles)
     d_width = max_width - min_width;
-    return int (d_width / (num_columns))
+    return ((d_width + 1) / (num_columns))
 
 
 def place_in_columns(upper_left_x, some_boxes):
@@ -101,13 +106,4 @@ def extract_placements(placement_dict):
     final_placement = []
     for key, value in placement_dict.items():
         final_placement.insert(key, value)
-    return final_placement
-
-
-def extract(placement_list):
-    final_placement = []
-    for dictionary in placement_list:
-        for key, value in dictionary.items():
-            final_placement.insert(key, value)
-
     return final_placement
