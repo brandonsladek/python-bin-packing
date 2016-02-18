@@ -25,7 +25,20 @@ RETURNS: a list of tuples that designate the top left corner placement,
 """
 
 def find_solution(rectangles):
-    return find_solution_by_x(rectangles, 50)
+    num_runs = 10
+
+    perimeter_list = []
+    placements_list = []
+
+    for i in range(num_runs):
+        perimeter, placements = find_solution_by_x(rectangles, (i + 1) * 10)
+        perimeter_list.insert(i, perimeter)
+        placements_list.insert(i, placements)
+        # print (str(perimeter))
+
+    index = perimeter_list.index(min(perimeter_list))
+
+    return placements_list[index]
 
 
 def find_solution_by_x(rectangles, num_columns):
@@ -39,15 +52,9 @@ def find_solution_by_x(rectangles, num_columns):
 
         width = rectangles[index][0]
 
-        # print ()
-        # print ("width " + str(width))
-        # print ("inc " + str(column_width_increment))
         column_number = int (width / column_width_increment)
 
-        # print ("column_number " + str(column_number))
-
         if(column_number >= num_columns):
-            print ("Column Number: " + str(column_number))
             column_number = num_columns - 1
         columns[column_number][index] = rectangles[index]
         
@@ -57,8 +64,10 @@ def find_solution_by_x(rectangles, num_columns):
         for key, value in place_in_columns(upper_left_x, columns[col_index]).items():
             placements[key] = value
         upper_left_x = upper_left_x + get_max_width(columns[col_index])
+
+    perimeter = find_perimeter(columns, num_columns, column_width_increment)
     
-    return extract_placements(placements)
+    return perimeter, extract_placements(placements)
 
 
 def get_max_width(some_boxes):
@@ -107,3 +116,20 @@ def extract_placements(placement_dict):
     for key, value in placement_dict.items():
         final_placement.insert(key, value)
     return final_placement
+
+# This is code taken from the driver
+def find_perimeter(columns, num_columns, column_width_increment):
+    x = num_columns * column_width_increment
+    max_column_height = 0;
+    for i in range(len(columns)):
+        cur_height = get_column_height(columns[i]) 
+        if (cur_height > max_column_height):
+            max_column_height = cur_height
+    y = max_column_height
+    return 2 * y + 2 * x
+
+def get_column_height(column_dict):
+    column_height = 0;
+    for key, value, in column_dict.items():
+        column_height = column_height + value[1]
+    return column_height
