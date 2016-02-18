@@ -9,6 +9,7 @@
 
 """
 
+
 """
 FIND_SOLUTION:
     Define this function in BinPacking.py, along with any auxiliary
@@ -25,20 +26,24 @@ RETURNS: a list of tuples that designate the top left corner placement,
 """
 
 def find_solution(rectangles):
-    perimeter, positions = find_solution_by_y(rectangles, 50)
-    return positions
+    return find_solution_by_varying(rectangles)
 
 
-def find_solution_varying(rectangles):
-    num_runs = 100
+def find_solution_by_varying(rectangles):
+    num_runs_each = 50
 
     perimeter_list = []
     placements_list = []
 
-    for i in range(num_runs):
-        perimeter, placements = find_solution_by_x(rectangles, (i + 1) * 1)
-        perimeter_list.insert(i, perimeter)
-        placements_list.insert(i, placements)
+    for i in range(num_runs_each):
+        perimeter_vertical, placements_vertical = find_solution_by_x(rectangles, 25 + i)
+        perimeter_list.insert(i, perimeter_vertical)
+        placements_list.insert(i, placements_vertical)
+
+    for i in range(50, num_runs_each + 50):
+        perimeter_horizontal, placements_horizontal = find_solution_by_y(rectangles, i - 25)
+        perimeter_list.insert(i, perimeter_horizontal)
+        placements_list.insert(i, placements_horizontal)
 
     index = perimeter_list.index(min(perimeter_list))
 
@@ -107,42 +112,66 @@ def get_max_width(some_boxes_dict):
     widths = []
     for key, value in some_boxes_dict.items():
         widths.append(value[0])
-    return max(widths)
+
+    if (len(widths) == 0):
+        return 0
+    else:
+        return max(widths)
 
 
 def get_max_height(some_boxes_dict):
     heights = []
     for key, value in some_boxes_dict.items():
         heights.append(value[1])
-    return max(heights)
+
+    if (len(heights) == 0):
+        return 0
+    else:
+        return max(heights)
 
 
 def max_width_of_list(some_boxes):
     widths = []
     for i in range(len(some_boxes)):
         widths.append(some_boxes[i][0])
-    return max(widths)
+
+    if (len(widths) == 0):
+        return 0
+    else:
+        return max(widths)
 
 
 def max_height_of_list(some_boxes):
     heights = []
     for i in range(len(some_boxes)):
         heights.append(some_boxes[i][1])
-    return max(heights)
+
+    if (len(heights) == 0):
+        return 0
+    else:
+        return max(heights)
 
 
 def min_width_of_list(some_boxes):
     widths = []
     for i in range(len(some_boxes)):
         widths.append(some_boxes[i][0])
-    return min(widths)
+
+    if (len(widths) == 0):
+        return 0
+    else:
+        return min(widths)
 
 
 def min_height_of_list(some_boxes):
     heights = []
     for i in range(len(some_boxes)):
         heights.append(some_boxes[i][1])
-    return min(heights)
+
+    if (len(heights) == 0):
+        return 0
+    else:
+        return min(heights)
 
 
 def calc_column_increment_width(rectangles, num_columns):
@@ -165,7 +194,7 @@ def place_in_columns_vertically(upper_left_x, some_boxes):
     
     for key, value in some_boxes.items():
         height = value[1]
-        upper_left_y = upper_left_y + height
+        upper_left_y = upper_left_y - height
         coordinate = (upper_left_x, upper_left_y)
         placement[key] = coordinate
     
@@ -178,7 +207,7 @@ def place_in_columns_horizontally(upper_left_y, some_boxes):
 
     for key, value in some_boxes.items():
         width = value[0]
-        upper_left_x = upper_left_x - width
+        upper_left_x = upper_left_x + width
         coordinate = (upper_left_x, upper_left_y)
         placement[key] = coordinate
 
